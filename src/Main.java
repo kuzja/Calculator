@@ -14,7 +14,8 @@ public class Main {
             String inputString = main.getUserData();
             Calc calc = new Calc(inputString);
 
-            System.out.println(inputString + " = " + calc.getResult());
+        //    System.out.println(inputString + " = " + calc.getResult());
+            calc.getResult();
 
         }
 
