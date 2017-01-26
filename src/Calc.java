@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 public class Calc {
 
     private String usrString;
+    public String clearString;
 
     public Calc(String usrString) {
         this.usrString = usrString;
@@ -11,40 +12,33 @@ public class Calc {
 
     public long getResult() {
 
-        long result = 0L;
-//        String arguments[] = usrString.split(" ");
-//
-//        if (arguments.length < 3 || arguments.length > 3) {
-//            System.out.println("Incorrect parameters!");
-//        }
-//
-//        String op = arguments[1];
-//
-//        Long param1 = Long.parseLong(arguments[0]);
-//        Long param2 = Long.parseLong(arguments[2]);
-//
-//        if (op.equals(Operation.Add.toString())) {
-//            result = param1 + param2;
-//        } else if (op.equals(Operation.Sub.toString())) {
-//            result = param1 - param2;
-//        } else {
-//            System.out.println("Incorrect parameters!");
-//        }
+        clearString = clearString(usrString);
 
+        Pattern pattern1 = Pattern.compile("(\\+|-)");
+        String stringNumbers[] = pattern1.split(clearString);
 
-        Pattern pt = Pattern.compile("(\\d){1,}");
-        Matcher mt = pt.matcher(usrString);
+        Pattern pattern2 = Pattern.compile("(\\d+)");
+        String stringOperations[] = pattern2.split(clearString);
 
-        while(mt.find()){
+        return getResult(stringOperations[1], Integer.parseInt(stringNumbers[0]), Integer.parseInt(stringNumbers[1]));
+    }
 
-            System.out.println(mt.start());
-            System.out.println(mt.end());
+    public String clearString(String str) {
+
+        Pattern pt = Pattern.compile("(\\s)+");
+        Matcher mt = pt.matcher(str);
+        return mt.replaceAll("");
+
+    }
+
+    private long getResult(String operation, int firstNumber, int seconfNumber) {
+
+        if (operation.equals(Operation.Add.toString())) {
+            return firstNumber + seconfNumber;
+        } else {
+            return firstNumber - seconfNumber;
         }
 
-
-
-
-        return result;
     }
 
 }
