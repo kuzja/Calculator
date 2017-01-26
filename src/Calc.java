@@ -3,8 +3,8 @@ import java.util.regex.Pattern;
 
 public class Calc {
 
-    private String usrString;
     public String clearString;
+    private String usrString;
 
     public Calc(String usrString) {
         this.usrString = usrString;
