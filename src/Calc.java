@@ -29,7 +29,6 @@ public class Calc {
         Matcher mt = pt.matcher(str);
         return mt.replaceAll("");
 
-
     }
 
     private long getResult(String operation, int firstNumber, int seconfNumber) {

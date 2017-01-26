@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class Main {
+public class Program {
 
     private Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        Main main = new Main();
+        Program main = new Program();
 
         while (true) {
 
