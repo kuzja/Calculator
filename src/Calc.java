@@ -1,43 +1,56 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calc {
 
     public String clearString;
-    private String usrString;
 
     public Calc(String usrString) {
-        this.usrString = usrString;
+        this.clearString = getClearString(usrString);
     }
 
     public long getResult() {
 
-        clearString = clearString(usrString);
+        String pattern = "(\\(^-)?\\d+";
 
-        Pattern pattern1 = Pattern.compile("(\\+|-)");
-        String stringNumbers[] = pattern1.split(clearString);
+        Pattern patternNumbers = Pattern.compile(pattern);
+        Matcher matcher = patternNumbers.matcher(clearString);
 
-        Pattern pattern2 = Pattern.compile("(\\d+)");
-        String stringOperations[] = pattern2.split(clearString);
+        ArrayList<Long> numbers = new ArrayList<Long>();
 
-        return getResult(stringOperations[1], Integer.parseInt(stringNumbers[0]), Integer.parseInt(stringNumbers[1]));
+        while (matcher.find()){
+            numbers.add(Long.parseLong(matcher.group()));
+            System.out.println(matcher.group());
+        }
+
+        pattern = "(^\\-)?\\d+";
+        Pattern patternOperations = Pattern.compile(pattern);
+        String stringOperations[] = patternOperations.split(clearString);
+
+        String op;
+
+        Long result = 0L;
+
+        for (int i = 1; i < stringOperations.length; i++) {
+            op = stringOperations[i];
+            if (op.equals(Operation.Add.toString())) {
+                numbers.set(i, Operation.Add.action(numbers.get(i-1), numbers.get(i)));
+            } else {
+                numbers.set(i, Operation.Sub.action(numbers.get(i-1), numbers.get(i)));
+            }
+
+            result = numbers.get(i);
+        }
+        return result;
     }
 
-    public String clearString(String str) {
+    public String getClearString(String str) {
 
         Pattern pt = Pattern.compile("(\\s)+");
         Matcher mt = pt.matcher(str);
         return mt.replaceAll("");
-
-    }
-
-    private long getResult(String operation, int firstNumber, int seconfNumber) {
-
-        if (operation.equals(Operation.Add.toString())) {
-            return firstNumber + seconfNumber;
-        } else {
-            return firstNumber - seconfNumber;
-        }
 
     }
 

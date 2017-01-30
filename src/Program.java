@@ -8,15 +8,10 @@ public class Program {
 
         Program main = new Program();
 
-        while (true) {
+        String inputString = main.getUserData();
+        Calc calc = new Calc(inputString);
 
-            System.out.println("Enter your expression: ");
-            String inputString = main.getUserData();
-            Calc calc = new Calc(inputString);
-
-            System.out.println(calc.clearString + "=" + calc.getResult());
-
-        }
+        System.out.println(calc.clearString + "=" + calc.getResult());
 
     }
 
